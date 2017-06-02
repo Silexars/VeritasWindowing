@@ -1,3 +1,9 @@
 [submodule "modules/VeritasOrchestra"]
 	path = modules/VeritasOrchestra
 	url = https://www.github.com/Silexars/VeritasOrchestra
+[submodule "modules/VeritasDefinitions"]
+	path = modules/VeritasDefinitions
+	url = https://www.github.com/Silexars/VeritasDefinitions
+[submodule "modules/VeritasData"]
+	path = modules/VeritasData
+	url = https://www.github.com/Silexars/VeritasData

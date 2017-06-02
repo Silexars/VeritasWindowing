@@ -1,7 +1,5 @@
 #pragma once
 
-#include <Veritas/Orchestra/Orchestra.h>
-
 namespace Veritas {
     namespace Windowing {
         class Window;

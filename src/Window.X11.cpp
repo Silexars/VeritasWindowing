@@ -20,7 +20,7 @@ void Window::systemCWindow(float32 width, float32 height, float32 x, float32 y) 
     XInitThreads();
 
     ::Display* display = XOpenDisplay(0);
-    ::Window window = XCreateSimpleWindow(display, RootWindow(display, 0), x, y, width, height, 0, BlackPixel(display, 0), WhitePixel(display ,0));
+    ::Window window = XCreateSimpleWindow(display, RootWindow(display, 0), x, y, width, height, 0, BlackPixel(display, 0), WhitePixel(display, 0));
 
     XSelectInput(display, window, KeyPressMask | KeyReleaseMask | ButtonPressMask | ButtonReleaseMask | ButtonMotionMask | PointerMotionMask | StructureNotifyMask );
     XMapWindow(display, window);
@@ -48,7 +48,28 @@ void Window::systemDWindow() {
 
 void Window::systemClose() {
     XDestroyWindow(impl->display, impl->window);
-    publisher.publish("Close");
+    //publisher.publish("Close");
+}
+
+void Window::systemSetName(const String &name) {
+    XStoreName(impl->display, impl->window, (const char*) name.getBuffer().getData());
+}
+
+void Window::systemSetFullscreen(bool b) {
+    XEvent xev;
+    Atom wm_state = XInternAtom(impl->display, "_NET_WM_STATE", False);
+    Atom fullscreen = XInternAtom(impl->display, "_NET_WM_STATE_FULLSCREEN", False);
+
+    memset(&xev, 0, sizeof(xev));
+    xev.type = ClientMessage;
+    xev.xclient.window = impl->window;
+    xev.xclient.message_type = wm_state;
+    xev.xclient.format = 32;
+    xev.xclient.data.l[0] = b;
+    xev.xclient.data.l[1] = fullscreen;
+    xev.xclient.data.l[2] = 0;
+
+    XSendEvent(impl->display, DefaultRootWindow(impl->display), False, SubstructureNotifyMask, &xev);
 }
 
 void Window::systemRun() {
@@ -63,7 +84,7 @@ void Window::systemRun() {
 
             switch (e.type) {
                 case ClientMessage: if ((Atom) e.xclient.data.l[0] == impl->wmDeleteMessage) {
-                    systemClose();
+                    close();
                     break;
                 }
             }

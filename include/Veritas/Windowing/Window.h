@@ -1,29 +1,37 @@
 #pragma once
 
 #include <Veritas/Orchestra/Orchestra.h>
+#include <Veritas/Windowing/View.h>
 
 namespace Veritas {
     namespace Windowing {
-        class Window : public Orchestra::Runtime::LocalModule {
+        class Window {
             public:
-                Window();
+                Window(const Data::String& name = "");
+                Window(const Data::String& name, uint32 width, uint32 height);
                 ~Window();
 
-                void run();
+                View* getView() const;
+
+                bool isOpen() const;
+
+                void setName(const Data::String& name);
+                const Data::String& getName() const;
+
+                void setFullscreen(bool b);
+                bool isFullscreen() const;
 
                 uint64 getNativeHandle() const;
+                void run();
             private:
-                static Orchestra::Interfacing::Interfacer interfacer;
+                View* view;
+                Data::String name;
+                bool isfullscreen;
+                bool isopen;
 
-                Orchestra::Interfacing::Publisher publisher;
 
-                Module* view;
-                Orchestra::Interfacing::Requester requester;
 
-                void Run(const Orchestra::Messaging::Message& message);
-
-                void ViewRequest(const Orchestra::Messaging::Message& message, const Orchestra::Interfacing::Replier& replier);
-                void NativeHandleRequest(const Orchestra::Messaging::Message& message, const Orchestra::Interfacing::Replier& replier);
+                void close();
 
                 class PImpl;
                 PImpl *impl;
@@ -31,6 +39,8 @@ namespace Veritas {
                 void systemDWindow();
                 void systemRun();
                 void systemClose();
+                void systemSetFullscreen(bool b);
+                void systemSetName(const Data::String& name);
                 uint64 systemGetNativeHandle() const;
         };
     }

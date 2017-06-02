@@ -8,11 +8,8 @@ using namespace Orchestra;
 using namespace Messaging;
 using namespace Interfacing;
 
-Interfacer View::interfacer = Interfacer(LocalModule::getInterfacer()).set("Reply", ReplyInterface("Window", &View::WindowRequest));
-
 View::View(Window* window)
-    : LocalModule(Address(this), interfacer)
-    , window(window)
+    : window(window)
 {
     systemCView(window);
 }
@@ -20,9 +17,7 @@ View::~View() {
     systemDView();
 }
 
-void View::WindowRequest(const Message &message, const Replier &replier) {
-    replier.reply(Form().set("Address", window->getAddress()));
-}
+Window* View::getWindow() const { return window; }
 
 /*
 View::View(Window* parent) : parent(parent), glctx(0) {

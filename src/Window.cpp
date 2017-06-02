@@ -5,39 +5,55 @@ using namespace Veritas;
 using namespace Windowing;
 using namespace Data;
 
-using namespace Orchestra;
-using namespace Messaging;
-using namespace Interfacing;
-
-Interfacer Window::interfacer = Interfacer(LocalModule::getInterfacer()).set("Reply", ReplyInterface("View", &Window::ViewRequest))
-                                                                        .set("Reply", ReplyInterface("NativeHandle", &Window::NativeHandleRequest))
-                                                                        .set("Output", OutputInterface("Close"))
-                                                                        .set("Input", InputInterface("Run", &Window::Run));
-
-Window::Window()
-    : LocalModule(Address(this), interfacer)
-    , requester(this)
-    , publisher(this)
+/*
+Window::Window(const String& name)
+    : isopen(true)
+    , isfullscreen(false)
 {
     systemCWindow(800, 600, 0, 0);
     view = new View(this);
-    requester.request("Subscription", VO::getInstance().getRunner());
+
+    setName(name);
+    setFullscreen(true); // we need an event to get the dimension change
 }
+*/
+
+Window::Window(const String &name, uint32 width, uint32 height)
+    : isopen(true)
+    , isfullscreen(false)
+{
+    systemCWindow(800, 600, 0, 0);
+    view = new View(this);
+
+    setName(name);
+}
+
+void Window::setName(const String &name) {
+    this->name = name;
+    systemSetName(name);
+}
+const String& Window::getName() const { return name; }
+
+void Window::setFullscreen(bool b) {
+    if (b != isfullscreen) {
+        systemSetFullscreen(b);
+        isfullscreen = b;
+    }
+}
+bool Window::isFullscreen() const { return isfullscreen; }
 
 Window::~Window() {
     systemDWindow();
 }
 
+void Window::close() {
+    systemClose();
+    isopen = false;
+}
+
+bool Window::isOpen() const { return isopen; }
+
 void Window::run() { systemRun(); }
 
-void Window::Run(const Message& message) { systemRun(); }
-
-void Window::ViewRequest(const Message& message, const Replier& replier) {
-    replier.reply(Form().set("Address", view->getAddress()));
-}
-
-void Window::NativeHandleRequest(const Message &message, const Replier& replier) {
-    replier.reply(Form().set("NativeHandle", (uint64) getNativeHandle()));
-}
-
 uint64 Window::getNativeHandle() const { return systemGetNativeHandle(); }
+View* Window::getView() const { return view; }

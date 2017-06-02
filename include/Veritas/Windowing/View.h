@@ -5,18 +5,15 @@
 namespace Veritas {
     namespace Windowing {
         class Window;
-        class View : public Orchestra::Runtime::LocalModule {
+        class View {
             public:
                 ~View();
+
+                Window* getWindow() const;
             private:
-                Window* window;
-
-                static Orchestra::Interfacing::Interfacer interfacer;
-
                 friend class Window;
                 View(Window* window);
-
-                void WindowRequest(const Orchestra::Messaging::Message& message, const Orchestra::Interfacing::Replier& replier);
+                Window* window;
 
                 void systemCView(Window* window);
                 void systemDView();

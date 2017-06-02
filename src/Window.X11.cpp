@@ -10,10 +10,6 @@
 using namespace Veritas;
 using namespace Data;
 
-using namespace Orchestra;
-using namespace Messaging;
-using namespace Interfacing;
-
 using Windowing::Window;
 
 void Window::systemCWindow(float32 width, float32 height, float32 x, float32 y) {

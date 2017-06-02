@@ -6,8 +6,6 @@
 
 using namespace Veritas;
 using namespace Windowing;
-using namespace Orchestra;
-using namespace Interfacing;
 
 void View::systemCView(Window *parent) {}
 void View::systemDView() {}

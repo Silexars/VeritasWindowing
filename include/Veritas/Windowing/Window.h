@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Veritas/Definitions/Definitions.h>
+#include <Veritas/Data/String.h>
 #include <Veritas/Windowing/View.h>
 
 namespace Veritas {

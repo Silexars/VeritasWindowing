@@ -3,10 +3,6 @@
 
 using namespace Veritas;
 using namespace Windowing;
-using namespace Orchestra;
-
-using namespace Messaging;
-using namespace Interfacing;
 
 View::View(Window* window)
     : window(window)

@@ -68,6 +68,8 @@ void Window::systemSetFullscreen(bool b) {
     XSendEvent(impl->display, DefaultRootWindow(impl->display), False, SubstructureNotifyMask, &xev);
 }
 
+#include <iostream>
+
 void Window::systemRun() {
     while (XPending(impl->display)) {
         XEvent e;
@@ -83,7 +85,14 @@ void Window::systemRun() {
                     close();
                     break;
                 }
+                case KeyPress:
+                    if (onkeydown) onkeydown(e.xkey.keycode);
+                    break;
+                case KeyRelease:
+                    if (onkeyup) onkeyup(e.xkey.keycode);
+                    break;
             }
+
         } else return;
     }
 }

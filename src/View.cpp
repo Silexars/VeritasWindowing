@@ -4,16 +4,21 @@
 using namespace Veritas;
 using namespace Windowing;
 
-View::View(Window* window)
+View::View(Window* window, uint32 width, uint32 height)
     : window(window)
+    , width(width)
+    , height(height)
 {
-    systemCView(window);
+    systemCView(window, width, height);
 }
 View::~View() {
     systemDView();
 }
 
 Window* View::getWindow() const { return window; }
+
+uint32 View::getWidth() const { return width; }
+uint32 View::getHeight() const { return height; }
 
 /*
 View::View(Window* parent) : parent(parent), glctx(0) {

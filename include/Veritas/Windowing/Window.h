@@ -11,7 +11,8 @@ namespace Veritas {
                 Window(const Data::String& name, uint32 width, uint32 height);
                 ~Window();
 
-                View* getView() const;
+                View& getView();
+                const View& getView() const;
 
                 bool isOpen() const;
 
@@ -23,13 +24,17 @@ namespace Veritas {
 
                 uint64 getNativeHandle() const;
                 void run();
+
+                typedef std::function<void(uint32 key)> KeyEventCallback;
+                void onKeyDown(KeyEventCallback callback);
+                void onKeyUp(KeyEventCallback callback);
             private:
                 View* view;
                 Data::String name;
                 bool isfullscreen;
                 bool isopen;
 
-
+                KeyEventCallback onkeydown, onkeyup;
 
                 void close();
 

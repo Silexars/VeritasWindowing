@@ -22,8 +22,8 @@ Window::Window(const String &name, uint32 width, uint32 height)
     : isopen(true)
     , isfullscreen(false)
 {
-    systemCWindow(800, 600, 0, 0);
-    view = new View(this);
+    systemCWindow(width, height, 0, 0);
+    view = new View(this, width, height);
 
     setName(name);
 }
@@ -56,4 +56,8 @@ bool Window::isOpen() const { return isopen; }
 void Window::run() { systemRun(); }
 
 uint64 Window::getNativeHandle() const { return systemGetNativeHandle(); }
-View* Window::getView() const { return view; }
+const View& Window::getView() const { return *view; }
+View& Window::getView() { return *view; }
+
+void Window::onKeyDown(KeyEventCallback callback) { onkeydown = callback; }
+void Window::onKeyUp(KeyEventCallback callback) { onkeyup = callback; }

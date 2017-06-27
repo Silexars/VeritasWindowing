@@ -7,7 +7,7 @@
 using namespace Veritas;
 using namespace Windowing;
 
-void View::systemCView(Window *parent) {}
+void View::systemCView(Window *parent, uint32 width, uint32 height) {}
 void View::systemDView() {}
 
 #endif

@@ -68,6 +68,21 @@ void Window::systemSetFullscreen(bool b) {
     XSendEvent(impl->display, DefaultRootWindow(impl->display), False, SubstructureNotifyMask, &xev);
 }
 
+#include <map>
+
+std::map<uint32, Window::KEY> keymap = {
+    { 24, Window::Q },
+    { 25, Window::W },
+    { 26, Window::E },
+    { 38, Window::A },
+    { 39, Window::S },
+    { 40, Window::D },
+    { 113, Window::LEFT },
+    { 114, Window::RIGHT },
+    { 111, Window::UP },
+    { 116, Window::DOWN }
+};
+
 #include <iostream>
 
 void Window::systemRun() {
@@ -86,10 +101,10 @@ void Window::systemRun() {
                     break;
                 }
                 case KeyPress:
-                    if (onkeydown) onkeydown(e.xkey.keycode);
+                    if (onkeydown) onkeydown(keymap[e.xkey.keycode]);
                     break;
                 case KeyRelease:
-                    if (onkeyup) onkeyup(e.xkey.keycode);
+                    if (onkeyup) onkeyup(keymap[e.xkey.keycode]);
                     break;
             }
 

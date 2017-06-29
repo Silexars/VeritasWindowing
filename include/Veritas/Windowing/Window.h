@@ -25,7 +25,19 @@ namespace Veritas {
                 uint64 getNativeHandle() const;
                 void run();
 
-                typedef std::function<void(uint32 key)> KeyEventCallback;
+                enum KEY {
+                    A = 'A',
+                    W = 'W',
+                    S = 'S',
+                    D = 'D',
+                    Q = 'Q',
+                    E = 'E',
+                    LEFT = 8592,
+                    UP = 8593,
+                    RIGHT = 8594,
+                    DOWN = 8595
+                };
+                typedef std::function<void(KEY key)> KeyEventCallback;
                 void onKeyDown(KeyEventCallback callback);
                 void onKeyUp(KeyEventCallback callback);
             private:

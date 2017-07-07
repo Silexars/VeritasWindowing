@@ -3,7 +3,8 @@
 
 using namespace Veritas;
 using namespace Windowing;
-using namespace Data;
+
+using std::string;
 
 /*
 Window::Window(const String& name)
@@ -18,7 +19,7 @@ Window::Window(const String& name)
 }
 */
 
-Window::Window(const String &name, uint32 width, uint32 height)
+Window::Window(const string &name, uint32 width, uint32 height)
     : isopen(true)
     , isfullscreen(false)
 {
@@ -28,11 +29,11 @@ Window::Window(const String &name, uint32 width, uint32 height)
     setName(name);
 }
 
-void Window::setName(const String &name) {
+void Window::setName(const string &name) {
     this->name = name;
     systemSetName(name);
 }
-const String& Window::getName() const { return name; }
+const string& Window::getName() const { return name; }
 
 void Window::setFullscreen(bool b) {
     if (b != isfullscreen) {

@@ -8,9 +8,9 @@
 #include <cstdio>
 
 using namespace Veritas;
-using namespace Data;
 
 using Windowing::Window;
+using std::string;
 
 void Window::systemCWindow(float32 width, float32 height, float32 x, float32 y) {
     XInitThreads();
@@ -47,8 +47,8 @@ void Window::systemClose() {
     //publisher.publish("Close");
 }
 
-void Window::systemSetName(const String &name) {
-    XStoreName(impl->display, impl->window, (const char*) name.getBuffer().getData());
+void Window::systemSetName(const string &name) {
+    XStoreName(impl->display, impl->window, name.c_str());
 }
 
 void Window::systemSetFullscreen(bool b) {

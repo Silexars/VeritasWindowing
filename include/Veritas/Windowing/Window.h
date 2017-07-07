@@ -1,14 +1,14 @@
 #pragma once
 
-#include <Veritas/Data/String.h>
+#include <string>
 #include <Veritas/Windowing/View.h>
 
 namespace Veritas {
     namespace Windowing {
         class Window {
             public:
-                Window(const Data::String& name = "");
-                Window(const Data::String& name, uint32 width, uint32 height);
+                Window(const std::string& name = "");
+                Window(const std::string& name, uint32 width, uint32 height);
                 ~Window();
 
                 View& getView();
@@ -16,8 +16,8 @@ namespace Veritas {
 
                 bool isOpen() const;
 
-                void setName(const Data::String& name);
-                const Data::String& getName() const;
+                void setName(const std::string& name);
+                const std::string& getName() const;
 
                 void setFullscreen(bool b);
                 bool isFullscreen() const;
@@ -42,7 +42,7 @@ namespace Veritas {
                 void onKeyUp(KeyEventCallback callback);
             private:
                 View* view;
-                Data::String name;
+                std::string name;
                 bool isfullscreen;
                 bool isopen;
 
@@ -57,7 +57,7 @@ namespace Veritas {
                 void systemRun();
                 void systemClose();
                 void systemSetFullscreen(bool b);
-                void systemSetName(const Data::String& name);
+                void systemSetName(const std::string& name);
                 uint64 systemGetNativeHandle() const;
         };
     }

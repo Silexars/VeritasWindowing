@@ -23,7 +23,7 @@ Window::Window(const string &name, uint32 width, uint32 height)
     : isopen(true)
     , isfullscreen(false)
 {
-    systemCWindow(width, height, 0, 0);
+    systemCWindow((float32) width, (float32) height, 0.0f, 0.0f);
     view = new View(this, width, height);
 
     setName(name);
@@ -44,13 +44,16 @@ void Window::setFullscreen(bool b) {
 bool Window::isFullscreen() const { return isfullscreen; }
 
 Window::~Window() {
+    if (isOpen()) close();
     systemDWindow();
 }
 
 void Window::close() {
     systemClose();
-    isopen = false;
+    wasClosed();
 }
+
+void Window::wasClosed() { isopen = false; }
 
 bool Window::isOpen() const { return isopen; }
 

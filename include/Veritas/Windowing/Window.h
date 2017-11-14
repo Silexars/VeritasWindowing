@@ -49,8 +49,10 @@ namespace Veritas {
                 KeyEventCallback onkeydown, onkeyup;
 
                 void close();
+                void wasClosed();
 
                 class PImpl;
+                friend class PImpl;
                 PImpl *impl;
                 void systemCWindow(float32 width, float32 height, float32 x, float32 y);
                 void systemDWindow();

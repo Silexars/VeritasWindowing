@@ -22,6 +22,8 @@ namespace Veritas {
                 void setFullscreen(bool b);
                 bool isFullscreen() const;
 
+                void setDimension(uint32 width, uint32 height);
+
                 uint64 getNativeHandle() const;
                 void run();
 
@@ -41,15 +43,18 @@ namespace Veritas {
                 void onKeyDown(KeyEventCallback callback);
                 void onKeyUp(KeyEventCallback callback);
             private:
+                friend class View;
                 View* view;
                 std::string name;
                 bool isfullscreen;
                 bool isopen;
+                uint32 width, height;
 
                 KeyEventCallback onkeydown, onkeyup;
 
                 void close();
                 void wasClosed();
+                void wasSetDimension(uint32 width, uint32 height);
 
                 class PImpl;
                 friend class PImpl;
@@ -60,6 +65,7 @@ namespace Veritas {
                 void systemClose();
                 void systemSetFullscreen(bool b);
                 void systemSetName(const std::string& name);
+                void systemSetDimension(uint32 width, uint32 height);
                 uint64 systemGetNativeHandle() const;
         };
     }

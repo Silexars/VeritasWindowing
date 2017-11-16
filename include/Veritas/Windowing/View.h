@@ -9,6 +9,8 @@ namespace Veritas {
             public:
                 ~View();
 
+                void setDimension(uint32 width, uint32 height);
+
                 uint32 getWidth() const;
                 uint32 getHeight() const;
 
@@ -22,6 +24,7 @@ namespace Veritas {
 
                 void systemCView(Window* window, uint32 width, uint32 height);
                 void systemDView();
+                void systemSetDimension(uint32 width, uint32 height);
         };
     }
 }

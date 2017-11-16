@@ -10,6 +10,7 @@ View::View(Window* window, uint32 width, uint32 height)
     , height(height)
 {
     systemCView(window, width, height);
+    setDimension(width, height);
 }
 View::~View() {
     systemDView();
@@ -19,6 +20,12 @@ Window* View::getWindow() const { return window; }
 
 uint32 View::getWidth() const { return width; }
 uint32 View::getHeight() const { return height; }
+
+void View::setDimension(uint32 width, uint32 height) {
+    this->width = width;
+    this->height = height;
+    systemSetDimension(width, height);
+}
 
 /*
 View::View(Window* parent) : parent(parent), glctx(0) {

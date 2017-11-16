@@ -43,6 +43,16 @@ void Window::setFullscreen(bool b) {
 }
 bool Window::isFullscreen() const { return isfullscreen; }
 
+void Window::setDimension(uint32 width, uint32 height) {
+    systemSetDimension(width, height);
+    wasSetDimension(width, height);
+}
+
+void Window::wasSetDimension(uint32 width, uint32 height) {
+    this->width = width;
+    this->height = height;
+}
+
 Window::~Window() {
     if (isOpen()) close();
     systemDWindow();

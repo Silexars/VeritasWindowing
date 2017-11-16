@@ -86,4 +86,9 @@ void Window::systemSetName(const std::string &name) { SetWindowText(impl->hwnd, 
 
 uint64 Window::systemGetNativeHandle() const { return (uint64) impl->hwnd; }
 
+#include <iostream>
+void Window::systemSetDimension(uint32 width, uint32 height) {
+    SetWindowPos((HWND) impl->hwnd, 0, 0, 0, width, height, SWP_NOMOVE | SWP_NOZORDER);
+}
+
 #endif
